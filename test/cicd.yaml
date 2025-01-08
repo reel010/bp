@@ -1,0 +1,29 @@
+resources:
+- name: my-repo
+  type: git
+  source:
+    uri: git@github.com:username/repository.git
+    branch: main
+    private_key: ((github-ssh-key))
+
+jobs:
+- name: build-and-test
+  plan:
+  - get: my-repo
+    trigger: true
+  - task: run-tests
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: ubuntu
+      inputs:
+      - name: my-repo
+      run:
+        path: sh
+        args:
+        - -exc
+        - |
+          cd my-repo
+          ./run-tests.sh

@@ -1,0 +1,13 @@
+To download the file for windows
+Invoke-WebRequest -Uri https://concourse-ci.org/docker-compose.yml -OutFile docker-compose.yml
+To download the file for linux
+curl -O https://concourse-ci.org/docker-compose.yml
+
+http://localhost:8080/
+
+download fly then move to usr/bin make sure you change name fro fly.exe to fly
+then sudo chmod +x /usr/local/bin/fly
+
+fly --version 
+Run the fly login Command to log in to concourse
+fly -t tutorial login -c http://localhost:8080 -u test -p test

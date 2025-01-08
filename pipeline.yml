@@ -1,0 +1,35 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: python
+    tag: '3.9'
+
+inputs:
+  - name: script-repo
+
+run:
+  path: sh
+  args:
+    - -exc
+    - |
+      pip install requests
+      python script-repo/btcprice.py
+
+---
+resources:
+  - name: script-repo
+    type: git
+    source:
+      uri: https://github.com/your-username/your-repo.git
+      branch: main
+
+jobs:
+  - name: fetch-bitcoin-price
+    plan:
+      - get: script-repo
+        trigger: true
+      - task: run-btc-script
+        file: script-repo/task-config.yml

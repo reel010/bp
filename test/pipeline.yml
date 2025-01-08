@@ -1,0 +1,21 @@
+resources:
+- name: hello-world
+  type: time
+  source:
+    interval: 1m
+
+jobs:
+- name: say-hello
+  plan:
+  - get: hello-world
+  - task: greet
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox
+      run:
+        path: echo
+        args:
+        - "Hello, Concourse!"
