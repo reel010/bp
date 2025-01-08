@@ -3,7 +3,7 @@ resources:
     type: git
     source:
       uri: https://github.com/reel010/bp.git
-      branch: main  # Adjust if you're using a different branch
+      branch: main
 
 jobs:
   - name: run-btc-price
@@ -18,10 +18,14 @@ jobs:
             type: docker-image
             source:
               repository: python
-              tag: "3.9"  # Use the Python version matching your script
+              tag: "3.11"
           inputs:
             - name: repo
           run:
-            path: python
+            path: sh
             args:
-              - repo/btcprice.py
+              - -exc
+              - |
+                pip install --upgrade pip
+                pip install -r repo/requirements.txt
+                python repo/btcprice.py
