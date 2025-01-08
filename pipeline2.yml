@@ -23,7 +23,7 @@ resources:
   - name: script-repo
     type: git
     source:
-      uri: https://github.com/your-username/your-repo.git
+      uri: https://github.com/rej23/bp.git
       branch: main
 
 jobs:
